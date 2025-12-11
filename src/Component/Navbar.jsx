@@ -24,7 +24,7 @@ export default function Navbar() {
           isScrolled ? "opacity-0 -translate-y-5 pointer-events-none" : "opacity-100 translate-y-0"
         }`}
       >
-        SK Computer Coaching Pvt. Ltd.
+        SK Ji Computer Coaching Classes & Insitute Pvt. Ltd.
       </div>
 
       <div

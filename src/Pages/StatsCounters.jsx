@@ -49,7 +49,7 @@ export default function StatsCounters() {
       <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
 
         {stats.map((item, i) => {
-          const val = usePulseCounter(item.max, 2000);
+          const val = usePulseCounter(item.max, 9000);
 
           return (
             <div key={i} className="flex flex-col items-center">

@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// Motion Variants
+const instructors = [
+  {
+    id: 1,
+    name: "Sateesh Sir",
+    subject: "CEO & Founder",
+    img: "https://res.cloudinary.com/dznmoz8hw/image/upload/v1758825812/sateesh2_ebo6if.jpg",
+  },
+  {
+    id: 2,
+    name: "Rahul Sir",
+    subject: "Diploma Course",
+    img: "https://res.cloudinary.com/dznmoz8hw/image/upload/v1712345678/rahul_profile.jpg",
+  },
+  {
+    id: 3,
+    name: "Pooja Ma’am",
+    subject: "MS Office, Tally & Accounting Software",
+    img: "https://res.cloudinary.com/dznmoz8hw/image/upload/v1712345690/pooja_profile.jpg",
+  },
+];
+
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -16,6 +37,15 @@ const item = {
 };
 
 export default function AboutUs() {
+  const [index, setIndex] = useState(0);
+
+  const nextSlide = () => {
+    setIndex((prev) => (prev + 1) % instructors.length);
+  };
+
+  const prevSlide = () => {
+    setIndex((prev) => (prev - 1 + instructors.length) % instructors.length);
+  };
   return (
     <div className="w-full font-sans overflow-hidden bg-gray-100 text-white">
 
@@ -193,47 +223,56 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <section className="py-20 bg-gray-950 px-6">
-        <div className="max-w-6xl mx-auto">
+    <section className="py-20 bg-gray-950 px-6">
+      <div className="max-w-5xl mx-auto">
 
-          <motion.h2
-            className="text-4xl text-teal-500 mb-14 text-center"
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+        {/* HEADING */}
+        <h2 className="text-4xl text-teal-500 font-bold text-center">
+          Meet Our Instructor & Founder
+        </h2>
+
+        {/* CAROUSEL WRAPPER */}
+        <div className="relative mt-10 flex items-center justify-center">
+
+          {/* LEFT ARROW */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 bg-gray-800 p-3 rounded-full text-teal-400 hover:bg-teal-700 transition"
           >
-            Meet Our Instructors!
-          </motion.h2>
+            <ChevronLeft size={28} />
+          </button>
 
-          <motion.div
-            className="grid md:grid-cols-3 gap-10"
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
+          {/* SINGLE SLIDE CARD */}
+          <div className="w-[320px] bg-gray-800 p-6 rounded-xl border border-teal-500/50 shadow-lg
+                          hover:shadow-[0_0_25px_teal] transition-all duration-300">
+            <div className="h-48 bg-gray-700 rounded-lg mb-4 overflow-hidden">
+              <img
+                src={instructors[index].img}
+                alt={instructors[index].name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <h3 className="text-2xl text-teal-300 font-semibold">
+              {instructors[index].name}
+            </h3>
+
+            <p className="text-gray-400 font-light mt-1">
+              {instructors[index].subject}
+            </p>
+          </div>
+
+          {/* RIGHT ARROW */}
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 bg-gray-800 p-3 rounded-full text-teal-400 hover:bg-teal-700 transition"
           >
-
-            {[1, 2, 3].map((id) => (
-              <motion.div
-                key={id}
-                className="bg-gray-800 p-6 rounded-xl border border-teal-500/50 shadow-lg hover:shadow-[0_0_25px_teal] transition-all duration-300 hover:-translate-y-2"
-                variants={item}
-              >
-                <div className="h-48 bg-gray-700 rounded-lg mb-4 flex items-center justify-center text-teal-400 text-xl">
-                  Instructor Image
-                </div>
-
-                <h3 className="text-2xl  text-teal-300">Instructor</h3>
-                <p className="text-gray-400 font-light mt-1">
-                  Expert in various computer and software subjects.
-                </p>
-              </motion.div>
-            ))}
-
-          </motion.div>
+            <ChevronRight size={28} />
+          </button>
         </div>
-      </section>
+      </div>
+    </section>
+
 
     </div>
   );
